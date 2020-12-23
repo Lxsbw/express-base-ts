@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug TS",
+      "preLaunchTask": "typescript",
+      "program": "${workspaceFolder}/src/app.ts",
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "runtimeExecutable": "nodemon", // 全局安装，或者 node-dev
+      "restart": true,
+      "console": "integratedTerminal",
+      "outFiles": ["${workspaceFolder}/dist/*.js"]
+    }
+  ]
+}
