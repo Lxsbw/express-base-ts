@@ -1,16 +1,28 @@
-import express from 'express';
+/*
+ * @Author: zhixiong.fu
+ * @Date: 2020-12-24 15:46:35
+ * @Last Modified by: zhixiong.fu
+ * @Last Modified time: 2020-12-24 16:40:43
+ */
+
 import { Request, Response, Router } from 'express';
+import * as MobilePhone from '../controller/mobile-phone';
 
-const router: Router = express.Router();
+class AppRouter {
+  public appRouter: Router;
 
-router.get('/', (req: Request, res: Response): void => {
-  const title = 'World ss';
-  res.send('Hello, Express TypeScript' + title);
-});
+  public constructor() {
+    this.appRouter = Router();
+    this.init();
+  }
 
-router.get('/hello', (req: Request, res: Response): void => {
-  const title = 'World';
-  res.send('Hello, world' + title);
-});
+  private init() {
+    this.appRouter.get('/', (req: Request, res: Response): void => {
+      res.send('Hello, Express TypeScript');
+    });
 
-export { router };
+    this.appRouter.post('/api/mobile-phone/create', MobilePhone.create);
+  }
+}
+
+export const appRouters = new AppRouter().appRouter;

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf dist && tsc",
     "dev": "nodemon --watch 'src/' -e ts --exec ts-node ./src/app.ts",
     "prd": "pm2 start dist/app.js --name=express-base-ts",
     "stop": "pm2 stop express-base-ts && pm2 delete express-base-ts",
