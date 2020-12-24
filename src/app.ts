@@ -1,5 +1,6 @@
 import express from 'express';
 import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
+import bodyParser from 'body-parser';
 import { appRouters } from './routes/router'; // 路由
 import { sysConfig } from './config/config.default'; // 配置
 
@@ -17,7 +18,9 @@ class App {
   }
 
   private middleware(): void {
-    this.app.use(express.json());
+    // this.app.use(express.json());
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
   }
 
   /**
@@ -44,11 +47,11 @@ class App {
      */
     this.app.listen(sysConfig.port /*this.app.get('port')*/, () => {
       console.log(
-        '  App is running at http://localhost:%d in %s mode',
+        'App is running at http://localhost:%d in %s mode',
         sysConfig.port, // this.app.get('port'),
         this.app.get('env')
       );
-      console.log('  Press CTRL-C to stop\n');
+      console.log('Press CTRL-C to stop\n');
     });
   }
 }
