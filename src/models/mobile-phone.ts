@@ -2,50 +2,21 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-25 13:51:40
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-25 16:38:08
+ * @Last Modified time: 2020-12-25 21:01:47
  */
 
-import {
-  SwaggerDefinitionConstant,
-  ApiModel,
-  ApiModelProperty
-} from 'swagger-express-ts';
-
-@ApiModel({
-  description: 'MobilePhone description',
-  name: 'MobilePhone'
-})
 export class MobilePhone {
-  @ApiModelProperty({
-    description: '手机型号',
-    required: true
-  })
+  public _id?: string;
+
   public model_name?: string;
-  @ApiModelProperty({
-    description: '尺寸',
-    required: true
-  })
+
   public size?: string;
-  @ApiModelProperty({
-    description: '规格',
-    required: true
-  })
+
   public spec?: string;
 
-  @ApiModelProperty({
-    description: '内存'
-  })
   public ram?: number;
 
-  @ApiModelProperty({
-    description: '空间'
-  })
   public rom?: number;
 
-  @ApiModelProperty({
-    description: '序列号'
-    // example: [{ website: 'http://xcatliu.com' }]
-    // format: SwaggerDefinitionConstant.Definition.Property.Type.STRING
-  })
   public seria_number?: string;
 }

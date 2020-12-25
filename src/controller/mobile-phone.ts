@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-25 16:34:51
+ * @Last Modified time: 2020-12-25 21:01:12
  */
 import 'reflect-metadata';
 import { Request, Response, NextFunction } from 'express';
@@ -14,7 +14,7 @@ import {
   interfaces
 } from 'inversify-express-utils';
 import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
-import { MobilePhone } from '../models/mobile-phone';
+import { MobilePhoneAdd } from '../schemas/request/mobile-phone';
 
 @ApiPath({
   path: '/api/mobile-phone',
@@ -35,7 +35,7 @@ export class MobilePhoneController implements interfaces.Controller {
       body: {
         description: '手机信息',
         required: true,
-        model: 'MobilePhone'
+        model: 'MobilePhoneAdd'
       }
       //   query: {
       //     _id: {
@@ -54,7 +54,7 @@ export class MobilePhoneController implements interfaces.Controller {
   public create(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.body));
 
-    const newMobile = new MobilePhone();
+    const newMobile = new MobilePhoneAdd();
 
     res.json({ state: 'Success', mess: 'hello ts' });
   }
