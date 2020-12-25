@@ -11,14 +11,12 @@
       "*": ["node_modules/*", "src/types/*"],
       "@/*": ["src/*"]
     },
-
-    "types": [
-      "express",
-      //   "inversify",
-      "inversify-express-utils",
-      "reflect-metadata"
-    ],
-    // "module": "commonjs",
+    // "types": [
+    //   "express",
+    //   "inversify",
+    //   "inversify-express-utils",
+    //   "reflect-metadata"
+    // ],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true

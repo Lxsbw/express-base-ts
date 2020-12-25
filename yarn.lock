@@ -762,7 +762,7 @@ inversify-express-utils@4.2.2:
   dependencies:
     express "4.16.2"
 
-inversify@^5.0.1:
+inversify@^5.0.5:
   version "5.0.5"
   resolved "https://registry.npm.taobao.org/inversify/download/inversify-5.0.5.tgz?cache=0&sync_timestamp=1607581230823&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Finversify%2Fdownload%2Finversify-5.0.5.tgz#bd1f8e6d8e0f739331acd8ba9bc954635aae0bbf"
   integrity sha1-vR+ObY4Pc5MxrNi6m8lUY1quC78=
@@ -1423,7 +1423,7 @@ typedarray-to-buffer@^3.1.5:
 
 typescript@^4.1.3:
   version "4.1.3"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.1.3.tgz?cache=0&sync_timestamp=1608793121741&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.1.3.tgz?cache=0&sync_timestamp=1608879231631&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
   integrity sha1-UZ1YK9lMugz4k0x9joRn5HP1O7c=
 
 undefsafe@^2.0.3:

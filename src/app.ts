@@ -1,19 +1,17 @@
 import express from 'express';
-import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
 import bodyParser from 'body-parser';
-import { appRouters } from './routes/router'; // 路由
-import { sysConfig } from './config/config.default'; // 配置
 import path from 'path';
+import * as swagger from 'swagger-express-ts';
+import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
 import { Container } from 'inversify';
 import {
   interfaces,
   InversifyExpressServer,
   TYPE
 } from 'inversify-express-utils';
-import { CarsController } from './controller/cars';
-import { MobilePhoneController } from './controller/mobilephone';
-import 'reflect-metadata';
-import * as swagger from 'swagger-express-ts';
+import { appRouters } from './routes/router'; // 路由
+import { sysConfig } from './config/config.default'; // 配置
+import { MobilePhoneController } from './controller/mobile-phone';
 
 class App {
   // ref to Express instance
@@ -23,22 +21,15 @@ class App {
     console.log('app初始化');
 
     // this.app = express();
-    this.app = this.middleware();
+    this.app = this.swaggerInit();
     this.routes();
     this.launchConf();
   }
 
-  private middleware(): express.Application {
-    // this.app.use(express.json());
-
+  private swaggerInit(): express.Application {
     const container = new Container();
 
     // note that you *must* bind your controllers to Controller
-    container
-      .bind<interfaces.Controller>(TYPE.Controller)
-      .to(CarsController)
-      .inSingletonScope()
-      .whenTargetNamed(CarsController.name);
     container
       .bind<interfaces.Controller>(TYPE.Controller)
       .to(MobilePhoneController)
@@ -56,9 +47,7 @@ class App {
       app.use(
         '/api-docs/swagger/assets',
         express.static(path.join(__dirname, '../node_modules/swagger-ui-dist'))
-        // express.static('../node_modules/swagger-ui-dist')
       );
-      app.use(bodyParser.json());
       app.use(
         swagger.express({
           definition: {
@@ -67,7 +56,7 @@ class App {
               title: 'Swagger',
               version: '1.0.0'
             },
-            host: 'localhost:3000',
+            // host: 'localhost:3000',
             basePath: '/',
             produces: ['application/json', 'application/xml'],
             schemes: ['http', 'https'],
@@ -88,37 +77,18 @@ class App {
           }
         })
       );
+
+      // middleware
+      this.middleware(app);
     });
     return server.build();
+  }
 
-    // // swagger
-    // this.app.use(express.static(path.join(__dirname, 'public')));
-    // this.app.use(
-    //   '/api-docs/swagger',
-    //   express.static(path.join(__dirname, 'swagger'))
-    // );
-    // this.app.use(
-    //   '/api-docs/swagger/assets',
-    //   express.static(path.join(__dirname, '../node_modules/swagger-ui-dist'))
-    //   // express.static('../node_modules/swagger-ui-dist')
-    // );
-    // this.app.use(bodyParser.json());
-    // this.app.use(bodyParser.urlencoded({ extended: true }));
-    // this.app.use(
-    //   swagger.express({
-    //     definition: {
-    //       info: {
-    //         title: 'My api',
-    //         version: '1.0'
-    //       },
-    //       externalDocs: {
-    //         url: 'My url'
-    //         // url: '/api-docs/swagger.json'
-    //       }
-    //       // Models can be defined here
-    //     }
-    //   })
-    // );
+  private middleware(middapp: express.Application): void {
+    // this.app.use(express.json());
+
+    middapp.use(bodyParser.json());
+    middapp.use(bodyParser.urlencoded({ extended: true }));
   }
 
   /**

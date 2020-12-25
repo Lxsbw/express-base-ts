@@ -6,8 +6,7 @@
  */
 
 import { Request, Response, Router } from 'express';
-import * as cars from '../controller/cars';
-import * as MobilePhone from '../controller/mobilephone';
+import * as MobilePhone from '../controller/mobile-phone';
 
 class AppRouter {
   public appRouter: Router;
@@ -22,11 +21,8 @@ class AppRouter {
       res.send('Hello, Express TypeScript');
     });
 
-    const carsObj = new cars.CarsController();
-    this.appRouter.post('/cars', carsObj.postCar);
-
     const mobile = new MobilePhone.MobilePhoneController();
-    this.appRouter.post('/mobilephone/create', mobile.create);
+    this.appRouter.post('/api/mobile-phone/create', mobile.create);
   }
 }
 

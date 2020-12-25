@@ -5,31 +5,23 @@
  * @Last Modified time: 2020-12-25 16:34:51
  */
 import 'reflect-metadata';
-import * as express from 'express';
-import { inject, injectable } from 'inversify';
+import { Request, Response, NextFunction } from 'express';
+import { injectable } from 'inversify';
 import {
   controller,
   httpGet,
   httpPost,
   interfaces
 } from 'inversify-express-utils';
-import 'reflect-metadata';
-import {
-  ApiOperationGet,
-  ApiOperationPost,
-  ApiPath,
-  SwaggerDefinitionConstant
-} from 'swagger-express-ts';
-import { CarModel } from '../models/car-model';
-import { MobileModel } from '../models/mobile-model';
-// import { CarsService } from './cars.service';
+import { ApiOperationGet, ApiOperationPost, ApiPath } from 'swagger-express-ts';
+import { MobilePhone } from '../models/mobile-phone';
 
 @ApiPath({
-  path: '/mobilephone',
-  name: 'MobilePhones',
+  path: '/api/mobile-phone',
+  name: 'MobilePhoneController',
   security: { apiKeyHeader: [] }
 })
-@controller('/mobilephone')
+@controller('/api/mobile-phone')
 @injectable()
 export class MobilePhoneController implements interfaces.Controller {
   /**
@@ -41,13 +33,14 @@ export class MobilePhoneController implements interfaces.Controller {
     summary: 'Post new version',
     parameters: {
       body: {
-        description: 'New version',
+        description: '手机信息',
         required: true,
-        model: 'Car'
+        model: 'MobilePhone'
       }
       //   query: {
       //     _id: {
       //       required: true,
+      //       default: 111,
       //       type: SwaggerDefinitionConstant.Parameter.Type.STRING
       //     }
       //   }
@@ -58,12 +51,10 @@ export class MobilePhoneController implements interfaces.Controller {
     }
   })
   @httpPost('/create')
-  public create(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
+  public create(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.body));
+
+    const newMobile = new MobilePhone();
 
     res.json({ state: 'Success', mess: 'hello ts' });
   }
