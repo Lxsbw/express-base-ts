@@ -2,9 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import * as path from 'path';
 import * as swagger from 'swagger-express-ts';
-import * as mongoose from 'mongoose';
+// import * as mongoose from 'mongoose';
+import mongoose = require('mongoose');
 import logger from 'morgan';
-import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
+// import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { ContainerInit } from './handle/inversify';
 import { appRouters } from './routes/router'; // 路由
@@ -79,6 +80,7 @@ class App {
 
     middapp.use(bodyParser.json());
     middapp.use(bodyParser.urlencoded({ extended: true }));
+
     middapp.use(logger('dev'));
   }
 
@@ -96,8 +98,8 @@ class App {
         useCreateIndex: true,
         poolSize: 5, // 连接池中维护的连接数
         useNewUrlParser: true,
-        autoIndex: false
-        // useUnifiedTopology: true
+        autoIndex: false,
+        useUnifiedTopology: true
         // keepAlive: 120,
       })
       .then((open) => {
@@ -113,16 +115,15 @@ class App {
     console.log('🚀  Your awesome APP is launching...');
     console.log('====================================');
 
-    // this.app.use(errorHandler());
     // error handler
-    this.app.use(function (
-      err: Error,
-      req: Request,
-      res: Response,
-      next: NextFunction
-    ) {
-      return res.sendStatus(500);
-    });
+    // this.app.use(function (
+    //   err: Error,
+    //   req: Request,
+    //   res: Response,
+    //   next: NextFunction
+    // ) {
+    //   return res.sendStatus(500);
+    // });
 
     /**
      * Start Express server.

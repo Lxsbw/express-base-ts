@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 15:46:35
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-25 14:19:00
+ * @Last Modified time: 2020-12-26 16:20:43
  */
 
 import { Request, Response, Router } from 'express';
@@ -21,8 +21,27 @@ class AppRouter {
       res.send('Hello, Express TypeScript');
     });
 
-    const mobile = new MobilePhone.MobilePhoneController();
-    this.appRouter.post('/api/mobile-phone/create', mobile.create);
+    // const mobile = new MobilePhone.MobilePhoneController();
+    this.appRouter.get(
+      '/api/mobile-phone/findone',
+      MobilePhone.mobilePhoneController.findOne
+    );
+    this.appRouter.get(
+      '/api/mobile-phone/findall',
+      MobilePhone.mobilePhoneController.findAll
+    );
+    this.appRouter.post(
+      '/api/mobile-phone/save',
+      MobilePhone.mobilePhoneController.save
+    );
+    this.appRouter.put(
+      '/api/mobile-phone/update',
+      MobilePhone.mobilePhoneController.update
+    );
+    this.appRouter.delete(
+      '/api/mobile-phone/delete',
+      MobilePhone.mobilePhoneController.delete
+    );
   }
 }
 

@@ -8,10 +8,55 @@
 import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
 
 @ApiModel({
-  description: '创建手机参数',
-  name: 'MobilePhoneAdd'
+  description: '手机参数(查询结果)',
+  name: 'MobilePhoneQuery'
 })
-export class MobilePhoneAdd {
+export class MobilePhoneQuery {
+  @ApiModelProperty({
+    description: 'id'
+  })
+  public _id?: string;
+
+  @ApiModelProperty({
+    description: '手机型号'
+  })
+  public model_name?: string;
+
+  @ApiModelProperty({
+    description: '尺寸'
+  })
+  public size?: string;
+
+  @ApiModelProperty({
+    description: '规格'
+  })
+  public spec?: string;
+
+  @ApiModelProperty({
+    description: '内存'
+  })
+  public ram?: number;
+
+  @ApiModelProperty({
+    description: '空间'
+  })
+  public rom?: number;
+
+  @ApiModelProperty({
+    description: '序列号'
+  })
+  public seria_number?: string;
+
+  [k: string]: any;
+}
+
+@ApiModel({
+  description: '创建手机-输入参数',
+  name: 'MobilePhoneSaveIn'
+})
+export class MobilePhoneSaveIn {
+  public _id?: string;
+
   @ApiModelProperty({
     description: '手机型号',
     required: true
@@ -46,9 +91,74 @@ export class MobilePhoneAdd {
     // format: SwaggerDefinitionConstant.Definition.Property.Type.STRING
   })
   public seria_number?: string;
+}
+
+@ApiModel({
+  description: '创建手机-输出参数',
+  name: 'MobilePhoneSaveOut'
+})
+export class MobilePhoneSaveOut {
+  @ApiModelProperty({
+    description: 'id',
+    required: true
+  })
+  public _id?: string;
+
+  [k: string]: any;
+}
+
+@ApiModel({
+  description: '修改手机-输入参数',
+  name: 'MobilePhoneModifyIn'
+})
+export class MobilePhoneModifyIn {
+  @ApiModelProperty({
+    description: 'id',
+    required: true
+  })
+  public _id?: string;
 
   @ApiModelProperty({
-    description: '测试'
+    description: '手机型号'
   })
-  public tests?: string;
+  public model_name?: string;
+
+  @ApiModelProperty({
+    description: '尺寸'
+  })
+  public size?: string;
+
+  @ApiModelProperty({
+    description: '规格'
+  })
+  public spec?: string;
+
+  @ApiModelProperty({
+    description: '内存'
+  })
+  public ram?: number;
+
+  @ApiModelProperty({
+    description: '空间'
+  })
+  public rom?: number;
+
+  @ApiModelProperty({
+    description: '序列号'
+  })
+  public seria_number?: string;
+
+  [k: string]: any;
+}
+
+@ApiModel({
+  description: '删除手机-输入参数',
+  name: 'MobilePhoneDelIn'
+})
+export class MobilePhoneDelIn {
+  @ApiModelProperty({
+    description: 'id'
+    // required: true
+  })
+  public _id?: string;
 }

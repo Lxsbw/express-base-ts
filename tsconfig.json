@@ -17,9 +17,17 @@
     //   "inversify-express-utils",
     //   "reflect-metadata"
     // ],
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
+
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "inlineSourceMap": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "stripInternal": true,
+    "pretty": true,
+    "declaration": true
   },
   "include": ["src/**/*"], // 需要编译的 ts 文件，这里设置为 src 目录下的所有文件
   "exclude": ["node_modules"] // 编译需要排除的文件目录

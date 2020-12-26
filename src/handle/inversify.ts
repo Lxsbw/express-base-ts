@@ -2,13 +2,12 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-26 09:46:01
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-26 09:57:53
+ * @Last Modified time: 2020-12-26 16:37:34
  */
 
 import { Container } from 'inversify';
 import {
   interfaces,
-  InversifyExpressServer,
   TYPE
 } from 'inversify-express-utils';
 import { MobilePhoneController } from '../controller/mobile-phone';
