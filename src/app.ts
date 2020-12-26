@@ -3,15 +3,10 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import * as swagger from 'swagger-express-ts';
 import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
-import { Container } from 'inversify';
-import {
-  interfaces,
-  InversifyExpressServer,
-  TYPE
-} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import { ContainerInit } from './handle/inversify';
 import { appRouters } from './routes/router'; // 路由
 import { sysConfig } from './config/config.default'; // 配置
-import { MobilePhoneController } from './controller/mobile-phone';
 
 class App {
   // ref to Express instance
@@ -27,17 +22,8 @@ class App {
   }
 
   private swaggerInit(): express.Application {
-    const container = new Container();
-
-    // note that you *must* bind your controllers to Controller
-    container
-      .bind<interfaces.Controller>(TYPE.Controller)
-      .to(MobilePhoneController)
-      .inSingletonScope()
-      .whenTargetNamed(MobilePhoneController.name);
-
     // create server
-    const server = new InversifyExpressServer(container);
+    const server = new InversifyExpressServer(ContainerInit());
 
     server.setConfig((app: any) => {
       app.use(
@@ -81,6 +67,7 @@ class App {
       // middleware
       this.middleware(app);
     });
+
     return server.build();
   }
 
