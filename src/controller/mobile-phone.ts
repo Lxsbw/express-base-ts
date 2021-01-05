@@ -159,6 +159,7 @@ export class MobilePhoneController implements interfaces.Controller {
     parameters: {
       body: {
         description: '手机信息',
+        type: SwaggerDefinitionConstant.Parameter.Type.OBJECT,
         required: true,
         model: 'MobilePhoneModifyIn'
       }
