@@ -23,7 +23,7 @@ import {
   ApiOperationPut,
   ApiOperationDelete,
   SwaggerDefinitionConstant
-} from 'swagger-express-ts';
+} from '@fiwoo/swagger-express-ts';
 import {
   MobilePhoneQuery,
   MobilePhoneSaveIn,

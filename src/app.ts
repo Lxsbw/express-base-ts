@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import * as path from 'path';
-import * as swagger from 'swagger-express-ts';
+import * as swagger from '@fiwoo/swagger-express-ts';
 // import * as mongoose from 'mongoose';
 import mongoose = require('mongoose');
 import logger from 'morgan';

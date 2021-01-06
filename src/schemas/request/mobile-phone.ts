@@ -5,7 +5,7 @@
  * @Last Modified time: 2020-12-25 16:38:08
  */
 
-import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
+import { ApiModel, ApiModelProperty } from '@fiwoo/swagger-express-ts';
 
 @ApiModel({
   description: '手机参数(查询结果)',
@@ -59,13 +59,15 @@ export class MobilePhoneSaveIn {
 
   @ApiModelProperty({
     description: '手机型号',
-    required: true
+    required: true,
+    example: 'apple'
   })
   public model_name?: string;
 
   @ApiModelProperty({
     description: '尺寸',
-    required: true
+    required: true,
+    example: '5.7'
   })
   public size?: string;
 
@@ -81,7 +83,8 @@ export class MobilePhoneSaveIn {
   public ram?: number;
 
   @ApiModelProperty({
-    description: '空间'
+    description: '空间',
+    example: ''
   })
   public rom?: number;
 
