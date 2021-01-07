@@ -5,7 +5,7 @@
  * @Last Modified time: 2020-12-26 10:45:25
  */
 
-import { ISystemConfig } from '@/types/config';
+import { ISystemConfig } from '../types/config';
 
 export const sysConfig: ISystemConfig = {
   host: 'localhost',

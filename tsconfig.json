@@ -3,13 +3,13 @@
     "target": "ES2017",
     "module": "commonjs",
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "dist",
     // "strict": true, //TODO: 后面改进
     "esModuleInterop": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"],
-      "@/*": ["src/*"]
+      "*": ["node_modules/*", "src/types/*"]
+      // "@/*": ["src/*"]
     },
     // "types": [
     //   "express",
@@ -19,6 +19,7 @@
     // ],
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
+    "noImplicitAny": true,
 
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -27,7 +28,8 @@
     "noUnusedLocals": true,
     "stripInternal": true,
     "pretty": true,
-    "declaration": true
+    "declaration": true,
+    "lib": ["es2017", "dom"]
   },
   "include": ["src/**/*"], // 需要编译的 ts 文件，这里设置为 src 目录下的所有文件
   "exclude": ["node_modules"] // 编译需要排除的文件目录

@@ -89,9 +89,6 @@ class App {
   }
 
   private mongo(): void {
-    // const db: IDBContext = await app.applicationContext.getAsync('DBContext');
-    // // const db = new DBContext(app.config.sequelize, app.config.env);
-    // db.init();
     console.log(getMongoUrl());
     mongoose
       .connect(getMongoUrl(), {
