@@ -1,10 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as swagger from '@fiwoo/swagger-express-ts';
-// import * as mongoose from 'mongoose';
-import mongoose = require('mongoose');
-import logger from 'morgan';
+import * as mongoose from 'mongoose';
+// import { connect as MongoConnect } from 'mongoose';
+import * as logger from 'morgan';
 // import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { ContainerInit } from './handle/inversify';

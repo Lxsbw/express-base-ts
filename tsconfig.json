@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "outDir": "dist",
     // "strict": true, //TODO: 后面改进
-    "esModuleInterop": true,
+    // "esModuleInterop": true, //造成mongoose出问题的配置
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
