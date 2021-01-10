@@ -214,7 +214,6 @@ export class MobilePhoneController implements interfaces.Controller {
     console.log('controller : ' + JSON.stringify(req.query._id));
 
     const delMobile = new MobilePhoneDelIn();
-    // delMobile._id = req.body._id;
     delMobile._id = _.toString(req.query._id);
 
     res.json(await this.mpService.delete(delMobile));
