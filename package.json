@@ -1,8 +1,7 @@
 {
   "name": "express-base-ts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "version": "0.0.1",
+  "description": "Node.js & Express & TypeScript & MVC & mongoose & swagger",
   "scripts": {
     "start": "npm run build && node dist/app.js",
     "build": "rimraf dist && tsc && cp -rv src/swagger dist/swagger",
