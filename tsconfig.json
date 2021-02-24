@@ -11,12 +11,6 @@
       "*": ["node_modules/*", "src/types/*"]
       // "@/*": ["src/*"]
     },
-    // "types": [
-    //   "express",
-    //   "inversify",
-    //   "inversify-express-utils",
-    //   "reflect-metadata"
-    // ],
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -25,7 +19,7 @@
     "emitDecoratorMetadata": true,
     "inlineSourceMap": true,
     "noImplicitThis": true,
-    // "noUnusedLocals": true,
+    // "noUnusedLocals": true, // 校验未使用的变量声明
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
