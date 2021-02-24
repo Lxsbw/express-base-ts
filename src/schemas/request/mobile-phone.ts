@@ -1,167 +1,93 @@
 /*
  * @Author: zhixiong.fu
- * @Date: 2020-12-25 13:51:40
+ * @Date: 2021-01-08 21:40:49
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-25 16:38:08
+ * @Last Modified time: 2021-01-10 16:12:32
  */
+import { definition } from 'express-joi-swagger-ts';
+import * as joi from 'joi';
+// import { array, string } from 'joi';
 
-import { ApiModel, ApiModelProperty } from '@fiwoo/swagger-express-ts';
-
-@ApiModel({
-  description: '手机参数(查询结果)',
-  name: 'MobilePhoneQuery'
-})
+// 手机参数(查询结果)
 export class MobilePhoneQuery {
-  @ApiModelProperty({
-    description: 'id'
-  })
   public _id?: string;
-
-  @ApiModelProperty({
-    description: '手机型号'
-  })
   public model_name?: string;
-
-  @ApiModelProperty({
-    description: '尺寸'
-  })
   public size?: string;
-
-  @ApiModelProperty({
-    description: '规格'
-  })
   public spec?: string;
-
-  @ApiModelProperty({
-    description: '内存'
-  })
   public ram?: number;
-
-  @ApiModelProperty({
-    description: '空间'
-  })
   public rom?: number;
-
-  @ApiModelProperty({
-    description: '序列号'
-  })
   public seria_number?: string;
-
   [k: string]: any;
 }
+@definition('MobilePhoneQuery', '手机参数(查询结果)')
+export class MobilePhoneQuery_SC {
+  _id = joi.string().description('id');
+  model_name = joi.string().description('手机型号');
+  size = joi.string().description('尺寸');
+  spec = joi.string().description('规格');
+  ram = joi.number().description('内存');
+  rom = joi.number().description('空间');
+  seria_number = joi.string().description('序列号');
+}
 
-@ApiModel({
-  description: '创建手机-输入参数',
-  name: 'MobilePhoneSaveIn'
-})
+// 创建手机-输入参数'
 export class MobilePhoneSaveIn {
   public _id?: string;
-
-  @ApiModelProperty({
-    description: '手机型号',
-    required: true,
-    example: 'apple'
-  })
   public model_name?: string;
-
-  @ApiModelProperty({
-    description: '尺寸',
-    required: true,
-    example: '5.7'
-  })
   public size?: string;
-
-  @ApiModelProperty({
-    description: '规格',
-    required: true
-  })
   public spec?: string;
-
-  @ApiModelProperty({
-    description: '内存'
-  })
   public ram?: number;
-
-  @ApiModelProperty({
-    description: '空间',
-    example: ''
-  })
   public rom?: number;
-
-  @ApiModelProperty({
-    description: '序列号'
-    // example: [{ website: 'http://xcatliu.com' }]
-    // format: SwaggerDefinitionConstant.Definition.Property.Type.STRING
-  })
   public seria_number?: string;
 }
+@definition('MobilePhoneSaveIn', '创建手机-输入参数')
+export class MobilePhoneSaveIn_SC {
+  model_name = joi.string().required().description('手机型号').example('xx');
+  size = joi.string().required().description('尺寸').example('4.7');
+  spec = joi.string().required().description('规格').example('blue');
+  ram = joi.number().description('内存').example(4);
+  rom = joi.number().description('空间').example(64);
+  seria_number = joi.string().description('序列号').example('00010');
+}
 
-@ApiModel({
-  description: '创建手机-输出参数',
-  name: 'MobilePhoneSaveOut'
-})
+// 创建手机-输出参数
 export class MobilePhoneSaveOut {
-  @ApiModelProperty({
-    description: 'id',
-    required: true
-  })
   public _id?: string;
-
   [k: string]: any;
 }
+@definition('MobilePhoneSaveOut', '创建手机-输出参数')
+export class MobilePhoneSaveOut_SC {
+  _id = joi.string().description('id');
+}
 
-@ApiModel({
-  description: '修改手机-输入参数',
-  name: 'MobilePhoneModifyIn'
-})
+// 修改手机-输入参数
 export class MobilePhoneModifyIn {
-  @ApiModelProperty({
-    description: 'id',
-    required: true
-  })
   public _id?: string;
-
-  @ApiModelProperty({
-    description: '手机型号'
-  })
   public model_name?: string;
-
-  @ApiModelProperty({
-    description: '尺寸'
-  })
   public size?: string;
-
-  @ApiModelProperty({
-    description: '规格'
-  })
   public spec?: string;
-
-  @ApiModelProperty({
-    description: '内存'
-  })
   public ram?: number;
-
-  @ApiModelProperty({
-    description: '空间'
-  })
   public rom?: number;
-
-  @ApiModelProperty({
-    description: '序列号'
-  })
   public seria_number?: string;
 
   [k: string]: any;
 }
+@definition('MobilePhoneModifyIn', '修改手机-输入参数')
+export class MobilePhoneModifyIn_SC {
+  _id = joi.string().required().description('id');
+  model_name = joi.string().max(30).min(1).required().description('手机型号');
+  size = joi.string().description('尺寸');
+  spec = joi.string().description('规格');
+  ram = joi.number().description('内存');
+  rom = joi.number().description('空间');
+  seria_number = joi.string().description('序列号');
+}
 
-@ApiModel({
-  description: '删除手机-输入参数',
-  name: 'MobilePhoneDelIn'
-})
+// 删除手机-输入参数
 export class MobilePhoneDelIn {
-  @ApiModelProperty({
-    description: 'id'
-    // required: true
-  })
   public _id?: string;
+}
+@definition('MobilePhoneDelIn', '删除手机-输入参数')
+export class MobilePhoneDelIn_SC {
+  _id = joi.string().required().description('id');
 }

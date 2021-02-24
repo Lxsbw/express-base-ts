@@ -18,8 +18,10 @@
     "@fiwoo/swagger-express-ts": "^1.0.14",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-joi-swagger-ts": "^1.0.9",
     "inversify": "^5.0.5",
     "inversify-express-utils": "4.2.2",
+    "joi": "^14.3.1",
     "lodash": "^4.17.20",
     "mongoose": "~5.10.19",
     "morgan": "^1.10.0",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.9",
+    "@types/joi": "^14.3.3",
     "@types/lodash": "^4.14.166",
     "@types/mongoose": "~5.10.3",
     "@types/morgan": "^1.9.2",

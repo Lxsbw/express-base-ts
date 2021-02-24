@@ -2,114 +2,87 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2020-12-26 16:39:03
+ * @Last Modified time: 2021-02-24 23:59:14
  */
 import 'reflect-metadata';
 import { Request, Response, NextFunction } from 'express';
-import { injectable } from 'inversify';
 import * as _ from 'lodash';
 import {
   controller,
-  httpGet,
-  httpPost,
-  httpPut,
-  httpDelete,
-  interfaces
-} from 'inversify-express-utils';
-import {
-  ApiPath,
-  ApiOperationGet,
-  ApiOperationPost,
-  ApiOperationPut,
-  ApiOperationDelete,
-  SwaggerDefinitionConstant
-} from '@fiwoo/swagger-express-ts';
+  get,
+  post,
+  put,
+  del,
+  tag,
+  summary,
+  description,
+  parameter,
+  response,
+  ENUM_PARAM_IN
+} from 'express-joi-swagger-ts';
+import * as joi from 'joi';
+// import { array, string, object } from 'joi';
 import {
   MobilePhoneQuery,
   MobilePhoneSaveIn,
   MobilePhoneSaveOut,
   MobilePhoneModifyIn,
-  MobilePhoneDelIn
+  MobilePhoneDelIn,
+  MobilePhoneQuery_SC,
+  MobilePhoneSaveIn_SC,
+  MobilePhoneSaveOut_SC,
+  MobilePhoneModifyIn_SC,
+  MobilePhoneDelIn_SC
 } from '../schemas/request/mobile-phone';
-import {
-  mobilePhoneService,
-  IMobilePhoneService
-} from '../service/mobile-phone';
+// import {
+//   mobilePhoneService,
+//   IMobilePhoneService
+// } from '../service/mobile-phone';
+import { mobilePhoneService as mpService } from '../service/mobile-phone';
 
-@ApiPath({
-  path: '/api/mobile-phone',
-  name: 'MobilePhoneController',
-  security: { apiKeyHeader: [] }
-})
 @controller('/api/mobile-phone')
-@injectable()
-export class MobilePhoneController implements interfaces.Controller {
+export class MobilePhoneController {
   constructor() {
     console.log('MobilePhoneController初始化');
-    this.mpService = mobilePhoneService;
-    this.inversify();
+    // mpService = mobilePhoneService;
+    // this.inversify();
   }
 
-  private mpService: IMobilePhoneService;
+  //   private mpService: IMobilePhoneService;
 
   /**
    * id查找
    */
-
-  @ApiOperationGet({
-    path: '/findone',
-    description: 'id查找',
-    summary: 'get one mobile phone',
-    parameters: {
-      query: {
-        _id: {
-          required: true,
-          default: 111,
-          type: SwaggerDefinitionConstant.Parameter.Type.STRING
-        }
-      }
-    },
-    responses: {
-      200: {
-        model: 'MobilePhoneQuery'
-      }
-    }
-  })
-  @httpGet('/findone')
+  @get('/findone')
+  @tag('MobilePhone')
+  @summary('id查找')
+  @description('id查找')
+  @parameter(
+    '_id',
+    joi.string().required().description('id'),
+    ENUM_PARAM_IN.query
+  )
   async findOne(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.query._id));
-    res.json(await this.mpService.findOne({ _id: req.query._id }));
+    res.json(await mpService.findOne({ _id: req.query._id }));
   }
 
   /**
    * 查找
    */
-
-  @ApiOperationGet({
-    path: '/findall',
-    description: '查找',
-    summary: 'get mobile phone',
-    parameters: {
-      query: {
-        _id: {
-          type: SwaggerDefinitionConstant.Parameter.Type.STRING
-        },
-        model_name: {
-          type: SwaggerDefinitionConstant.Parameter.Type.STRING
-        }
-      }
-    },
-    responses: {
-      200: {
-        type: SwaggerDefinitionConstant.Response.Type.ARRAY,
-        model: 'MobilePhoneQuery'
-      }
-    }
-  })
-  @httpGet('/findall')
+  @get('/findall')
+  @tag('MobilePhone')
+  @summary('查找')
+  @description('查找')
+  @parameter(
+    'model_name',
+    joi.string().description('手机型号'),
+    ENUM_PARAM_IN.query
+  )
+  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
   async findAll(req: Request, res: Response, next: NextFunction) {
     res.json(
-      await this.mpService.findAll({
+      await mpService.findAll({
         _id: req.query._id,
         model_name: req.query.model_name
       })
@@ -119,22 +92,15 @@ export class MobilePhoneController implements interfaces.Controller {
   /**
    * 添加手机
    */
-  @ApiOperationPost({
-    path: '/save',
-    description: '添加手机',
-    summary: 'Post new mobile phone',
-    parameters: {
-      body: {
-        description: '手机信息',
-        required: true,
-        model: 'MobilePhoneSaveIn'
-      }
-    },
-    responses: {
-      200: { model: 'MobilePhoneSaveOut' }
-    }
-  })
-  @httpPost('/save')
+  @post('/save')
+  @tag('MobilePhone')
+  @summary('添加手机')
+  @description('添加手机')
+  @parameter(
+    'MobilePhone',
+    { type: 'object', required: true, items: { $ref: MobilePhoneSaveIn_SC } },
+    ENUM_PARAM_IN.body
+  )
   async save(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.body));
 
@@ -146,29 +112,21 @@ export class MobilePhoneController implements interfaces.Controller {
     newMobiles.rom = req.body.rom;
     newMobiles.seria_number = req.body.seria_number;
 
-    res.json(await this.mpService.save(newMobiles));
+    res.json(await mpService.save(newMobiles));
   }
 
   /**
    * 更新手机
    */
-  @ApiOperationPut({
-    path: '/update',
-    description: '更新手机',
-    summary: 'modify mobile phone',
-    parameters: {
-      body: {
-        description: '手机信息',
-        type: SwaggerDefinitionConstant.Parameter.Type.OBJECT,
-        required: true,
-        model: 'MobilePhoneModifyIn'
-      }
-    },
-    responses: {
-      200: { description: 'mongoose message' }
-    }
-  })
-  @httpPut('/update')
+  @put('/update')
+  @tag('MobilePhone')
+  @summary('更新手机')
+  @description('更新手机')
+  @parameter(
+    'MobilePhoneUpd',
+    { type: 'object', required: true, items: { $ref: MobilePhoneModifyIn_SC } },
+    ENUM_PARAM_IN.body
+  )
   async update(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.body));
 
@@ -181,59 +139,28 @@ export class MobilePhoneController implements interfaces.Controller {
     newMobiles.rom = req.body.rom;
     newMobiles.seria_number = req.body.seria_number;
 
-    res.json(await this.mpService.update(newMobiles._id, newMobiles));
+    res.json(await mpService.update(newMobiles._id, newMobiles));
   }
 
   /**
    * 删除手机
    */
-  @ApiOperationDelete({
-    path: '/delete',
-    description: '删除手机',
-    summary: 'delete mobile phone',
-    parameters: {
-      query: {
-        _id: {
-          type: SwaggerDefinitionConstant.Parameter.Type.STRING,
-          required: true
-        }
-      }
-      //   body: {
-      //     type: SwaggerDefinitionConstant.Parameter.Type.OBJECT,
-      //     description: '手机信息',
-      //     required: true,
-      //     model: 'MobilePhoneDelIn'
-      //   }
-    },
-    responses: {
-      200: { description: 'mongoose message' }
-    }
-  })
-  @httpDelete('/delete')
+  //   @del('/delete')
+  //   @tag('MobilePhone')
+  //   @summary('删除手机')
+  //   @description('删除手机')
+  //   @parameter(
+  //     'MobilePhoneDel',
+  //     { type: 'object', required: true, items: { $ref: MobilePhoneDelIn_SC } },
+  //     ENUM_PARAM_IN.body
+  //   )
   async delete(req: Request, res: Response, next: NextFunction) {
     console.log('controller : ' + JSON.stringify(req.query._id));
 
     const delMobile = new MobilePhoneDelIn();
     delMobile._id = _.toString(req.query._id);
 
-    res.json(await this.mpService.delete(delMobile));
-  }
-
-  private inversify(): void {
-    const result = new MobilePhoneQuery();
-    result.rom = 6;
-
-    const newMobileIn = new MobilePhoneSaveIn();
-    newMobileIn.rom = 6;
-
-    const newMobileOut = new MobilePhoneSaveOut();
-    newMobileOut.rom = 6;
-
-    const modMobile = new MobilePhoneModifyIn();
-    modMobile.rom = 6;
-
-    const delMobile = new MobilePhoneDelIn();
-    delMobile._id = '111';
+    res.json(await mpService.delete(delMobile));
   }
 }
 

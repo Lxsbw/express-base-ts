@@ -1,15 +1,13 @@
 import * as express from 'express';
+// import * as fs from 'fs';
 import * as bodyParser from 'body-parser';
-import * as path from 'path';
-import * as swagger from '@fiwoo/swagger-express-ts';
 import * as mongoose from 'mongoose';
 // import { connect as MongoConnect } from 'mongoose';
 import * as logger from 'morgan';
-// import { NextFunction, Request, Response } from 'express'; // express 申明文件定义的类型
-import { InversifyExpressServer } from 'inversify-express-utils';
-import { ContainerInit } from './handle/inversify';
 import { appRouters } from './routes/router'; // 路由
 import { sysConfig, getMongoUrl } from './config/config.default'; // 配置
+import { ControllerMap } from './handle/koaswagger';
+import { KJSRouter } from 'express-joi-swagger-ts';
 
 class App {
   // ref to Express instance
@@ -18,70 +16,55 @@ class App {
   constructor() {
     console.log('app初始化');
 
-    // this.app = express();
-    this.app = this.swaggerInit();
+    this.app = express();
+    this.middleware(this.app);
+    this.swaggerInit();
+    // this.app = this.swaggerInit();
     this.routes();
     this.mongo();
     this.launchConf();
   }
 
-  private swaggerInit(): express.Application {
-    // create server
-    const server = new InversifyExpressServer(ContainerInit());
-
-    server.setConfig((app: any) => {
-      app.use(
-        '/api-docs/swagger',
-        express.static(path.join(__dirname, 'swagger'))
-      );
-      app.use(
-        '/api-docs/swagger/assets',
-        express.static(path.join(__dirname, '../node_modules/swagger-ui-dist'))
-      );
-      app.use(
-        swagger.express({
-          definition: {
-            info: {
-              description:
-                'This is a sample server Koa2 server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.',
-              title: 'Express TypeScirpt Swagger',
-              version: '1.0.0',
-              contact: {
-                email: 'lxsbw@outlook.com'
-              },
-              // 开源协议
-              license: {
-                name: 'Apache 2.0',
-                url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-              }
-            },
-            // host: 'localhost:3000',
-            basePath: '/',
-            produces: ['application/json', 'application/xml'],
-            schemes: ['http', 'https'],
-            securityDefinitions: {
-              JWT: {
-                type: 'apiKey',
-                in: 'header',
-                name: 'Authorization'
-                // description: ''
-              }
-            },
-            // externalDocs: {
-            //   url: 'My url'
-            // },
-            responses: {
-              500: {}
-            }
-          }
-        })
-      );
-
-      // middleware
-      this.middleware(app);
+  private swaggerInit(): void {
+    const router = new KJSRouter({
+      swagger: '2.0',
+      info: {
+        description:
+          'This is a sample server Express server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.',
+        title: 'Express TypeScript Swagger',
+        version: '1.0.0',
+        concat: {
+          email: 'lxsbw@outlook.com'
+        },
+        // 开源协议
+        license: {
+          name: 'Apache 2.0',
+          url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+        }
+      },
+      // host: `${sysConfig.host}:${sysConfig.port}`,
+      basePath: '',
+      schemes: ['http', 'https'],
+      paths: {},
+      definitions: {},
+      securityDefinitions: {
+        JWT: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'Authorization'
+          // description: ''
+        }
+      }
     });
-
-    return server.build();
+    ControllerMap(router);
+    router.setSwaggerFile('swagger.json');
+    router.loadSwaggerUI('/api-docs/swagger');
+    console.log('swagger:' + JSON.stringify(router.getSwaggerFile()));
+    // fs.writeFileSync('./swagger.json', JSON.stringify(router.getSwaggerFile()));
+    // this.app
+    //   .use(router.getRouter().routes())
+    //   .use(router.getRouter().allowedMethods());
+    this.app.use(router._router);
   }
 
   private middleware(middapp: express.Application): void {
