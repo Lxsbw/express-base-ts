@@ -9,7 +9,7 @@
     "prd": "pm2 start dist/app.js --name=express-base-ts",
     "stop": "pm2 stop express-base-ts && pm2 delete express-base-ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "del": "rm -rf node_modules && rm -rf yarn.lock"
+    "del": "rimraf node_modules dist yarn.lock"
   },
   "keywords": [],
   "author": "",
