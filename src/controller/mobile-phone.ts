@@ -2,9 +2,8 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2021-02-24 23:59:14
+ * @Last Modified time: 2021-02-25 00:55:11
  */
-import 'reflect-metadata';
 import { Request, Response, NextFunction } from 'express';
 import * as _ from 'lodash';
 import {
@@ -145,20 +144,20 @@ export class MobilePhoneController {
   /**
    * 删除手机
    */
-  //   @del('/delete')
-  //   @tag('MobilePhone')
-  //   @summary('删除手机')
-  //   @description('删除手机')
-  //   @parameter(
-  //     'MobilePhoneDel',
-  //     { type: 'object', required: true, items: { $ref: MobilePhoneDelIn_SC } },
-  //     ENUM_PARAM_IN.body
-  //   )
+  @del('/delete')
+  @tag('MobilePhone')
+  @summary('删除手机')
+  @description('删除手机')
+  @parameter(
+    'MobilePhoneDel',
+    { type: 'object', required: true, items: { $ref: MobilePhoneDelIn_SC } },
+    ENUM_PARAM_IN.body
+  )
   async delete(req: Request, res: Response, next: NextFunction) {
-    console.log('controller : ' + JSON.stringify(req.query._id));
+    console.log('controller : ' + JSON.stringify(req.body._id));
 
     const delMobile = new MobilePhoneDelIn();
-    delMobile._id = _.toString(req.query._id);
+    delMobile._id = _.toString(req.body._id);
 
     res.json(await mpService.delete(delMobile));
   }

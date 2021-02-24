@@ -6,7 +6,7 @@ import * as mongoose from 'mongoose';
 import * as logger from 'morgan';
 import { appRouters } from './routes/router'; // 路由
 import { sysConfig, getMongoUrl } from './config/config.default'; // 配置
-import { ControllerMap } from './handle/koaswagger';
+import { ControllerMap } from './handle/expressSwagger';
 import { KJSRouter } from 'express-joi-swagger-ts';
 
 class App {
@@ -17,9 +17,8 @@ class App {
     console.log('app初始化');
 
     this.app = express();
-    this.middleware(this.app);
+    this.middleware();
     this.swaggerInit();
-    // this.app = this.swaggerInit();
     this.routes();
     this.mongo();
     this.launchConf();
@@ -61,19 +60,16 @@ class App {
     router.loadSwaggerUI('/api-docs/swagger');
     console.log('swagger:' + JSON.stringify(router.getSwaggerFile()));
     // fs.writeFileSync('./swagger.json', JSON.stringify(router.getSwaggerFile()));
-    // this.app
-    //   .use(router.getRouter().routes())
-    //   .use(router.getRouter().allowedMethods());
     this.app.use(router._router);
   }
 
-  private middleware(middapp: express.Application): void {
+  private middleware(): void {
     // this.app.use(express.json());
 
-    middapp.use(bodyParser.json());
-    middapp.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
 
-    middapp.use(logger('dev'));
+    this.app.use(logger('dev'));
   }
 
   private routes(): void {
