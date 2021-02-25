@@ -5,7 +5,7 @@
  * @Last Modified time: 2021-02-25 00:56:56
  */
 
-import { KJSRouter } from 'express-joi-swagger-ts';
+import { ExpressSwaggerRouter } from 'express-joi-swagger-ts';
 import { MobilePhoneController } from '../controller/mobile-phone';
 import {
   MobilePhoneQuery_SC,
@@ -18,7 +18,7 @@ import {
 /**
  * 映射controller，为swagger api doc准备
  */
-export const ControllerMap = (router: KJSRouter): void => {
+export const ControllerMap = (router: ExpressSwaggerRouter): void => {
   // 模型
   router.loadDefinition(MobilePhoneQuery_SC);
   router.loadDefinition([MobilePhoneSaveIn_SC, MobilePhoneSaveOut_SC]);

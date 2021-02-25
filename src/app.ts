@@ -7,7 +7,7 @@ import * as logger from 'morgan';
 import { appRouters } from './routes/router'; // 路由
 import { sysConfig, getMongoUrl } from './config/config.default'; // 配置
 import { ControllerMap } from './handle/expressSwagger';
-import { KJSRouter } from 'express-joi-swagger-ts';
+import { ExpressSwaggerRouter } from 'express-joi-swagger-ts';
 
 class App {
   // ref to Express instance
@@ -25,7 +25,7 @@ class App {
   }
 
   private swaggerInit(): void {
-    const router = new KJSRouter({
+    const router = new ExpressSwaggerRouter({
       swagger: '2.0',
       info: {
         description:
@@ -60,7 +60,7 @@ class App {
     router.loadSwaggerUI('/api-docs/swagger');
     console.log('swagger:' + JSON.stringify(router.getSwaggerFile()));
     // fs.writeFileSync('./swagger.json', JSON.stringify(router.getSwaggerFile()));
-    this.app.use(router._router);
+    this.app.use(router.getRouter());
   }
 
   private middleware(): void {
