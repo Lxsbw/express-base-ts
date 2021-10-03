@@ -81,16 +81,16 @@ class App {
     mongoose
       .connect(getMongoUrl(), {
         useCreateIndex: true,
-        poolSize: 5, // 连接池中维护的连接数
+        // poolSize: 5, // 连接池中维护的连接数
         useNewUrlParser: true,
         autoIndex: false,
         useUnifiedTopology: true
         // keepAlive: 120,
       })
-      .then((open) => {
+      .then(open => {
         console.log('📚  mongodb is launching...');
       })
-      .catch((err) => {
+      .catch(err => {
         console.error.bind(console, `connection error:${err}`);
       });
   }
@@ -123,9 +123,7 @@ class App {
 
       console.log('====================================');
       console.log(`✅  http://${sysConfig.host}:${sysConfig.port}`);
-      console.log(
-        `✅  http://${sysConfig.host}:${sysConfig.port}/api-docs/swagger`
-      );
+      console.log(`✅  http://${sysConfig.host}:${sysConfig.port}/api-docs/swagger`);
       console.log(`✅  Your awesome APP launched ${this.app.get('env')}`);
       console.log('====================================');
     });
