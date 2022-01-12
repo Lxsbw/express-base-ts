@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2021-02-25 00:55:11
+ * @Last Modified time: 2022-01-12 10:13:05
  */
 import { Request, Response, NextFunction } from 'express';
 import * as _ from 'lodash';
@@ -25,6 +25,8 @@ import {
 //   IMobilePhoneService
 // } from '../service/mobile-phone';
 import { mobilePhoneService as mpService } from '../service/mobile-phone';
+import { Linq } from 'linq-to-ts';
+import { List } from 'linqts';
 
 @controller('/api/mobile-phone')
 export class MobilePhoneController {
@@ -127,6 +129,64 @@ export class MobilePhoneController {
     delMobile._id = _.toString(req.body._id);
 
     res.json(await mpService.delete(delMobile));
+  }
+
+  /**
+   * LinqToTS
+   */
+  @get('/linqtots')
+  @tag('MobilePhone')
+  @summary('LinqToTS')
+  @description('LinqToTS')
+  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
+  async LinqToTS(req: Request, res: Response, next: NextFunction) {
+    const persons = [
+      { ID: 0, Age: 30, Name: 'A' },
+      { ID: 1, Age: 25, Name: 'B' },
+      { ID: 2, Age: 18, Name: 'C' },
+      { ID: 1, Age: 30, Name: 'D' },
+      { ID: 1, Age: 25, Name: 'E' },
+      { ID: 2, Age: 15, Name: 'F' }
+    ];
+    const orderByID = new Linq<any>(persons).OrderBy(value => value.ID).ToArray();
+    const thenByAge = new Linq<any>(persons)
+      .OrderBy(value => value.ID)
+      .ThenBy(value => value.Age)
+      .ToArray();
+    const thenByName = new Linq<any>(persons)
+      .OrderBy(value => value.ID)
+      .ThenBy(value => value.Age)
+      .ThenByDescending(value => value.Name)
+      .ToArray();
+
+    console.log('orderByID:', orderByID);
+    console.log('thenByAge:', thenByAge);
+    console.log('thenByName:', thenByName);
+
+    res.json({ thenByName });
+  }
+
+  /**
+   * LinqTS
+   */
+  @get('/linqts')
+  @tag('MobilePhone')
+  @summary('LinqTS')
+  @description('LinqTS')
+  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
+  async LinqTS(req: Request, res: Response, next: NextFunction) {
+    const parameters = [
+      { ID: 5, Rate: 0.0, Name: '正一郎' },
+      { ID: 13, Rate: 0.1, Name: '清次郎' },
+      { ID: 25, Rate: 0.0, Name: '誠三郎' },
+      { ID: 42, Rate: 0.3, Name: '征史郎' }
+    ];
+    const results = new List<any>(parameters)
+      .Select(value => {
+        return { ID: value.ID, Name: value.Name };
+      })
+      .ToArray();
+    res.json(results);
   }
 }
 
