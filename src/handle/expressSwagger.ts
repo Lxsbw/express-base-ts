@@ -7,13 +7,7 @@
 
 import { ExpressSwaggerRouter } from 'express-joi-swagger-ts';
 import { MobilePhoneController } from '../controller/mobile-phone';
-import {
-  MobilePhoneQuery_SC,
-  MobilePhoneSaveIn_SC,
-  MobilePhoneSaveOut_SC,
-  MobilePhoneModifyIn_SC,
-  MobilePhoneDelIn_SC
-} from '../schemas/request/mobile-phone';
+import { MobilePhoneQuery_SC, MobilePhoneSaveIn_SC, MobilePhoneSaveOut_SC, MobilePhoneModifyIn_SC, MobilePhoneDelIn_SC } from '../schemas/request/mobile-phone';
 
 /**
  * 映射controller，为swagger api doc准备
