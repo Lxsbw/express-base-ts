@@ -22,26 +22,11 @@ class AppRouter {
     });
 
     // const mobile = new MobilePhone.MobilePhoneController();
-    this.appRouter.get(
-      '/api/mobile-phone/findone',
-      MobilePhone.mobilePhoneController.findOne
-    );
-    this.appRouter.get(
-      '/api/mobile-phone/findall',
-      MobilePhone.mobilePhoneController.findAll
-    );
-    this.appRouter.post(
-      '/api/mobile-phone/save',
-      MobilePhone.mobilePhoneController.save
-    );
-    this.appRouter.put(
-      '/api/mobile-phone/update',
-      MobilePhone.mobilePhoneController.update
-    );
-    this.appRouter.delete(
-      '/api/mobile-phone/delete',
-      MobilePhone.mobilePhoneController.delete
-    );
+    this.appRouter.get('/api/mobile-phone/findone', MobilePhone.mobilePhoneController.findOne);
+    this.appRouter.get('/api/mobile-phone/findall', MobilePhone.mobilePhoneController.findAll);
+    this.appRouter.post('/api/mobile-phone/save', MobilePhone.mobilePhoneController.save);
+    this.appRouter.put('/api/mobile-phone/update', MobilePhone.mobilePhoneController.update);
+    this.appRouter.delete('/api/mobile-phone/delete', MobilePhone.mobilePhoneController.delete);
   }
 }
 

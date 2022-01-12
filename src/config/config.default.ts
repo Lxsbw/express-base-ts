@@ -12,6 +12,11 @@ export const sysConfig: ISystemConfig = {
   port: 8001
 };
 
+export const env = {
+  DEBUG: true,
+  ENV: ''
+};
+
 const mongoConf = {
   user: 'test_user',
   pass: '123456',

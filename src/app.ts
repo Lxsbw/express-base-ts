@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 // import { connect as MongoConnect } from 'mongoose';
 import * as logger from 'morgan';
 import { appRouters } from './routes/router'; // 路由
-import { sysConfig, getMongoUrl } from './config/config.default'; // 配置
+import { sysConfig, getMongoUrl, env } from './config/config.default'; // 配置
 import { ControllerMap } from './handle/expressSwagger';
 import { ExpressSwaggerRouter } from 'express-joi-swagger-ts';
 
@@ -78,6 +78,7 @@ class App {
 
   private mongo(): void {
     console.log(getMongoUrl());
+    mongoose.set('debug', env.DEBUG);
     mongoose
       .connect(getMongoUrl(), {
         useCreateIndex: true,

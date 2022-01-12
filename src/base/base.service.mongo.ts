@@ -5,13 +5,7 @@
  * @Last Modified time: 2020-12-26 11:27:09
  */
 
-import {
-  Model,
-  Document,
-  SaveOptions,
-  ModelUpdateOptions,
-  Types
-} from 'mongoose';
+import { Model, Document, SaveOptions, ModelUpdateOptions, Types } from 'mongoose';
 import * as _ from 'lodash';
 
 export class BaseService {
@@ -19,11 +13,7 @@ export class BaseService {
     return _.toString(Types.ObjectId());
   }
 
-  async upset<T extends Document>(
-    doc: Model<T>,
-    param: any,
-    options?: SaveOptions | ModelUpdateOptions
-  ): Promise<any> {
+  async upset<T extends Document>(doc: Model<T>, param: any, options?: SaveOptions | ModelUpdateOptions): Promise<any> {
     // TODO: 后面完善
     // if (new Date() > new Date('2020-12-30')) {
     //   return this.cthrow(500, 'date error must link lp');
@@ -33,9 +23,7 @@ export class BaseService {
     } else {
       param.updatedUser = this.auth.id;
     }
-    const data = await (!param._id
-      ? doc.create(param, options)
-      : doc.update({ _id: param._id }, param, options as ModelUpdateOptions));
+    const data = await (!param._id ? doc.create(param, options) : doc.update({ _id: param._id }, param, options as ModelUpdateOptions));
     if (param._id) {
       await doc
         .findOne({
@@ -48,20 +36,8 @@ export class BaseService {
     return data;
   }
 
-  async findAndCount<T extends Document>(
-    doc: Model<T>,
-    conditions: any,
-    offest: number = undefined,
-    limit = 10,
-    sort = '_id',
-    sortDesc?: boolean,
-    projection?: any,
-    options?: any
-  ) {
-    if (
-      this.auth.userName !== 'admin' &&
-      !_.get(this.auth, 'role.directorCheckbox')
-    ) {
+  async findAndCount<T extends Document>(doc: Model<T>, conditions: any, offest: number = undefined, limit = 10, sort = '_id', sortDesc?: boolean, projection?: any, options?: any) {
+    if (this.auth.userName !== 'admin' && !_.get(this.auth, 'role.directorCheckbox')) {
       conditions = {
         ...conditions,
         createdUser: this.auth.id
@@ -76,7 +52,7 @@ export class BaseService {
         .skip(offest)
         .limit(_.toNumber(limit) > 0 ? _.toNumber(limit) : undefined)
         .exec()
-    ]).then((resultall) => {
+    ]).then(resultall => {
       return {
         total: resultall[0],
         row: resultall[1]
@@ -95,10 +71,7 @@ export class BaseService {
     options?: any;
     populate?: any;
   }) {
-    if (
-      this.auth.userName !== 'admin' &&
-      !_.get(this.auth, 'role.directorCheckbox')
-    ) {
+    if (this.auth.userName !== 'admin' && !_.get(this.auth, 'role.directorCheckbox')) {
       param.conditions = {
         ...param.conditions,
         createdUser: this.auth.id
@@ -110,12 +83,10 @@ export class BaseService {
         .find(param.conditions, param.projection, param.options)
         .sort({ [param.sort]: param.sortDesc ? '1' : '-1' })
         .skip(param.offest)
-        .limit(
-          _.toNumber(param.limit) > 0 ? _.toNumber(param.limit) : undefined
-        )
+        .limit(_.toNumber(param.limit) > 0 ? _.toNumber(param.limit) : undefined)
         .populate(param.populate)
         .exec()
-    ]).then((resultall) => {
+    ]).then(resultall => {
       return {
         total: resultall[0],
         row: resultall[1]

@@ -43,5 +43,4 @@ export const MobilePhoneSchema: Schema = new Schema(
   }
 );
 
-export const factory = () =>
-  model<IMobilePhoneDoc>('mobilePhone', MobilePhoneSchema, 'mobile-phone');
+export const factory = () => model<IMobilePhoneDoc>('mobilePhone', MobilePhoneSchema, 'mobile-phone');
