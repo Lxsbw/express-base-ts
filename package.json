@@ -19,6 +19,8 @@
     "express": "~4.17.1",
     "express-joi-swagger-ts": "~1.0.11",
     "joi": "~14.3.1",
+    "linq-to-ts": "^1.0.0",
+    "linqts": "^1.14.4",
     "lodash": "~4.17.20",
     "mongoose": "~5.10.19",
     "morgan": "~1.10.0",
