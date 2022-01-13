@@ -30,6 +30,7 @@ class AppRouter {
 
     this.appRouter.get('/api/mobile-phone/linqtots', MobilePhone.mobilePhoneController.LinqToTS);
     this.appRouter.get('/api/mobile-phone/linqts', MobilePhone.mobilePhoneController.LinqTS);
+    this.appRouter.get('/api/mobile-phone/linqjs', MobilePhone.mobilePhoneController.LinqJs);
   }
 }
 

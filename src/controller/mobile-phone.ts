@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2022-01-12 10:30:42
+ * @Last Modified time: 2022-01-13 16:17:28
  */
 import { Request, Response, NextFunction } from 'express';
 import * as _ from 'lodash';
@@ -28,6 +28,7 @@ import { mobilePhoneService as mpService } from '../service/mobile-phone';
 // import * as Linq from '../../../linqts';
 import { Linq } from 'linq-to-ts';
 import { List } from 'linqts';
+import * as jslinq from 'jslinq';
 
 @controller('/api/mobile-phone')
 export class MobilePhoneController {
@@ -188,6 +189,27 @@ export class MobilePhoneController {
       })
       .ToArray();
     res.json(results);
+  }
+
+  /**
+   * LinqJs
+   */
+  @get('/linqjs')
+  @tag('MobilePhone')
+  @summary('LinqJs')
+  @description('LinqJs')
+  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
+  async LinqJs(req: Request, res: Response, next: NextFunction) {
+    const data = [
+      { id: 1, name: 'one', category: 'fruits', countries: ['Italy', 'Austria'] },
+      { id: 2, name: 'two', category: 'vegetables', countries: ['Italy', 'Germany'] },
+      { id: 2, name: 'three', category: 'vegetables', countries: ['Germany'] },
+      { id: 2, name: 'ta', category: 'vegetables', countries: ['Germany'] },
+      { id: 4, name: 'four', category: 'fruits', countries: ['Japan'] },
+      { id: 5, name: 'five', category: 'fruits', countries: ['Japan', 'Italy'] }
+    ];
+    const result = jslinq(data).singleOrDefault(x => x.name == 'one');
+    res.json(result);
   }
 }
 
