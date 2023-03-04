@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2023-03-03 11:31:40
+ * @Last Modified time: 2023-03-04 14:15:42
  */
 import { Request, Response, NextFunction } from 'express';
 import * as _ from 'lodash';
@@ -161,6 +161,16 @@ export class MobilePhoneController {
       .ThenBy(value => value.Age)
       .ThenByDescending(value => value.Name)
       .ToArray();
+    // const orderByID = new Linq<any>(persons).orderBy(value => value.ID).toArray();
+    // const thenByAge = new Linq<any>(persons)
+    //   .orderBy(value => value.ID)
+    //   .thenBy(value => value.Age)
+    //   .toArray();
+    // const thenByName = new Linq<any>(persons)
+    //   .orderBy(value => value.ID)
+    //   .thenBy(value => value.Age)
+    //   .thenByDescending(value => value.Name)
+    //   .toArray();
 
     console.log('orderByID:', orderByID);
     console.log('thenByAge:', thenByAge);
