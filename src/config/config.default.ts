@@ -20,7 +20,7 @@ export const env = {
 const mongoConf = {
   user: 'test_user',
   pass: '123456',
-  host: '121.37.188.31',
+  host: '10.211.55.58',
   port: '16380',
   db: 'testdb'
 };
