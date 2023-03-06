@@ -6,17 +6,17 @@
  */
 
 import { IMobilePhoneDoc, factory } from '../models/mobile-phone';
-import { BaseService } from '../base/base.service.mongo';
+// import { BaseService } from '../base/base.service.mongo';
 import { Model } from 'mongoose';
 import * as _ from 'lodash';
 import { MobilePhoneQuery, MobilePhoneSaveIn, MobilePhoneSaveOut, MobilePhoneModifyIn, MobilePhoneDelIn } from '../schemas/request/mobile-phone';
 
 export interface IMobilePhoneService extends MobilePhoneService {}
 
-export class MobilePhoneService extends BaseService {
+export class MobilePhoneService {
   constructor() {
     console.log('MobilePhoneService初始化');
-    super();
+    // super();
     this.MobilePhoneDoc = factory();
   }
 
@@ -55,7 +55,7 @@ export class MobilePhoneService extends BaseService {
    * 添加手机
    */
   async save(param: MobilePhoneSaveIn): Promise<MobilePhoneSaveOut> {
-    return this.upset(this.MobilePhoneDoc, param).then(result => {
+    return this.MobilePhoneDoc.create(param).then(result => {
       return { _id: _.get(result, '_id', param._id) };
     });
   }
