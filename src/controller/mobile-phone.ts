@@ -2,7 +2,7 @@
  * @Author: zhixiong.fu
  * @Date: 2020-12-24 16:26:07
  * @Last Modified by: zhixiong.fu
- * @Last Modified time: 2023-03-04 14:15:42
+ * @Last Modified time: 2023-03-09 10:26:45
  */
 import { Request, Response, NextFunction } from 'express';
 import * as _ from 'lodash';
@@ -28,8 +28,8 @@ import { mobilePhoneService as mpService } from '../service/mobile-phone';
 // import * as Linq from '../../../linqts';
 import { Linq } from 'linq-to-ts';
 // import { Linq } from 'linq-to-javascript';
-import { List } from 'linqts';
-import * as jslinq from 'jslinq';
+// // import { List } from 'linqts';
+// // import * as jslinq from 'jslinq';
 
 @controller('/api/mobile-phone')
 export class MobilePhoneController {
@@ -151,26 +151,16 @@ export class MobilePhoneController {
       { ID: 1, Age: 25, Name: 'E' },
       { ID: 2, Age: 15, Name: 'F' }
     ];
-    const orderByID = new Linq<any>(persons).OrderBy(value => value.ID).ToArray();
+    const orderByID = new Linq<any>(persons).orderBy(value => value.ID).toArray();
     const thenByAge = new Linq<any>(persons)
-      .OrderBy(value => value.ID)
-      .ThenBy(value => value.Age)
-      .ToArray();
+      .orderBy(value => value.ID)
+      .thenBy(value => value.Age)
+      .toArray();
     const thenByName = new Linq<any>(persons)
-      .OrderBy(value => value.ID)
-      .ThenBy(value => value.Age)
-      .ThenByDescending(value => value.Name)
-      .ToArray();
-    // const orderByID = new Linq<any>(persons).orderBy(value => value.ID).toArray();
-    // const thenByAge = new Linq<any>(persons)
-    //   .orderBy(value => value.ID)
-    //   .thenBy(value => value.Age)
-    //   .toArray();
-    // const thenByName = new Linq<any>(persons)
-    //   .orderBy(value => value.ID)
-    //   .thenBy(value => value.Age)
-    //   .thenByDescending(value => value.Name)
-    //   .toArray();
+      .orderBy(value => value.ID)
+      .thenBy(value => value.Age)
+      .thenByDescending(value => value.Name)
+      .toArray();
 
     console.log('orderByID:', orderByID);
     console.log('thenByAge:', thenByAge);
@@ -182,46 +172,46 @@ export class MobilePhoneController {
   /**
    * LinqTS
    */
-  @get('/linqts')
-  @tag('MobilePhone')
-  @summary('LinqTS')
-  @description('LinqTS')
-  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
-  async LinqTS(req: Request, res: Response, next: NextFunction) {
-    const parameters = [
-      { ID: 5, Rate: 0.0, Name: '正一郎' },
-      { ID: 13, Rate: 0.1, Name: '清次郎' },
-      { ID: 25, Rate: 0.0, Name: '誠三郎' },
-      { ID: 42, Rate: 0.3, Name: '征史郎' }
-    ];
-    const results = new List<any>(parameters)
-      .Select(value => {
-        return { ID: value.ID, Name: value.Name };
-      })
-      .ToArray();
-    res.json(results);
-  }
+  // @get('/linqts')
+  // @tag('MobilePhone')
+  // @summary('LinqTS')
+  // @description('LinqTS')
+  // @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
+  // async LinqTS(req: Request, res: Response, next: NextFunction) {
+  //   const parameters = [
+  //     { ID: 5, Rate: 0.0, Name: '正一郎' },
+  //     { ID: 13, Rate: 0.1, Name: '清次郎' },
+  //     { ID: 25, Rate: 0.0, Name: '誠三郎' },
+  //     { ID: 42, Rate: 0.3, Name: '征史郎' }
+  //   ];
+  //   const results = new List<any>(parameters)
+  //     .Select(value => {
+  //       return { ID: value.ID, Name: value.Name };
+  //     })
+  //     .ToArray();
+  //   res.json(results);
+  // }
 
   /**
    * LinqJs
    */
-  @get('/linqjs')
-  @tag('MobilePhone')
-  @summary('LinqJs')
-  @description('LinqJs')
-  @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
-  async LinqJs(req: Request, res: Response, next: NextFunction) {
-    const data = [
-      { id: 1, name: 'one', category: 'fruits', countries: ['Italy', 'Austria'] },
-      { id: 2, name: 'two', category: 'vegetables', countries: ['Italy', 'Germany'] },
-      { id: 2, name: 'three', category: 'vegetables', countries: ['Germany'] },
-      { id: 2, name: 'ta', category: 'vegetables', countries: ['Germany'] },
-      { id: 4, name: 'four', category: 'fruits', countries: ['Japan'] },
-      { id: 5, name: 'five', category: 'fruits', countries: ['Japan', 'Italy'] }
-    ];
-    const result = jslinq(data).singleOrDefault(x => x.name == 'one');
-    res.json(result);
-  }
+  // @get('/linqjs')
+  // @tag('MobilePhone')
+  // @summary('LinqJs')
+  // @description('LinqJs')
+  // @parameter('_id', joi.string().description('id'), ENUM_PARAM_IN.query)
+  // async LinqJs(req: Request, res: Response, next: NextFunction) {
+  //   const data = [
+  //     { id: 1, name: 'one', category: 'fruits', countries: ['Italy', 'Austria'] },
+  //     { id: 2, name: 'two', category: 'vegetables', countries: ['Italy', 'Germany'] },
+  //     { id: 2, name: 'three', category: 'vegetables', countries: ['Germany'] },
+  //     { id: 2, name: 'ta', category: 'vegetables', countries: ['Germany'] },
+  //     { id: 4, name: 'four', category: 'fruits', countries: ['Japan'] },
+  //     { id: 5, name: 'five', category: 'fruits', countries: ['Japan', 'Italy'] }
+  //   ];
+  //   const result = jslinq(data).singleOrDefault(x => x.name == 'one');
+  //   res.json(result);
+  // }
 }
 
 export const mobilePhoneController = new MobilePhoneController();

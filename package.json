@@ -21,7 +21,7 @@
     "joi": "~14.3.1",
     "jslinq": "^1.0.22",
     "linq-to-javascript": "^2.0.0",
-    "linq-to-ts": "^1.0.13",
+    "linq-to-ts": "^1.2.0",
     "linqts": "^1.14.4",
     "lodash": "~4.17.20",
     "mongoose": "~7.0.0",
