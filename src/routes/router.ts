@@ -28,7 +28,8 @@ class AppRouter {
     this.appRouter.put('/api/mobile-phone/update', MobilePhone.mobilePhoneController.update);
     this.appRouter.delete('/api/mobile-phone/delete', MobilePhone.mobilePhoneController.delete);
 
-    this.appRouter.get('/api/mobile-phone/linqtots', MobilePhone.mobilePhoneController.LinqToTS);
+    this.appRouter.get('/api/mobile-phone/linqtots', MobilePhone.mobilePhoneController.LinqToJS);
+    this.appRouter.get('/api/mobile-phone/linqtojs', MobilePhone.mobilePhoneController.LinqToTS);
     this.appRouter.get('/api/mobile-phone/linqts', MobilePhone.mobilePhoneController.LinqTS);
     this.appRouter.get('/api/mobile-phone/linqjs', MobilePhone.mobilePhoneController.LinqJs);
   }
