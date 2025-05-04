@@ -20,7 +20,7 @@
     "express-joi-swagger-ts": "~1.0.11",
     "joi": "~14.3.1",
     "jslinq": "^1.0.22",
-    "linq-to-javascript": "~2.3.0",
+    "linq-to-javascript": "~2.3.1",
     "linq-to-ts": "~1.6.0",
     "linqts": "~2.0.0",
     "lodash": "~4.17.20",
